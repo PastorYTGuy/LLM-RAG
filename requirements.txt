@@ -1,0 +1,12 @@
+dotenv~=0.9.9
+python-dotenv~=1.2.1
+transformers~=4.57.1
+uvicorn~=0.40.0
+fastapi~=0.128.0
+pydantic~=2.12.5
+faiss~=1.12.0
+faiss-cpu~=1.13.2
+numpy~=2.4.1
+sentence-transformers~=5.2.0
+google-genai
+torch
