@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 def input_guardrail(question: str) -> (bool, str):
 
     forbidden_patterns = [
@@ -7,6 +11,8 @@ def input_guardrail(question: str) -> (bool, str):
     ]
 
     q_lower = question.lower()
+
+
 
     #Prompt Injection
     for pattern in forbidden_patterns:
@@ -89,16 +95,14 @@ def validate_and_dispatch(tool_name: str, args: dict):
 
             validated_args[param] = expected_type(args[param])
 
-
-        func = TOOL_REGISTRY[tool_name]
-        result = func(**validated_args)
+        result = TOOL_REGISTRY[tool_name](**validated_args)
         return {"status": "success", "output": result}
-
     except (ValueError, TypeError) as e:
-        return {"status": "validation_error", "reason": f"Invalid type for {tool_name}: {str(e)}"}
+        logger.warning(f"Błąd walidacji parametrów dla {tool_name}: {e}")
+        return {"status": "error", "reason": f"Błędny typ danych dla {tool_name}"}
     except Exception as e:
-
-        return {"status": "tool_error", "reason": "Internal tool execution error."}
+        logger.error(f"Krytyczny błąd narzędzia {tool_name}: {e}")
+        return {"status": "error", "reason": "Błąd wewnętrzny narzędzia."}
 
 
 FUNCTIONS = [kb_lookup_impl, files_search_impl, calculator_impl, read_document_impl]

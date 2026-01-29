@@ -18,6 +18,7 @@ System asystenta opartego na RAG z Function Calling i Guardrailami
 * Główna część programu jest uruchamiana poprzez main.py i wykorzystuje FastAPI
   * python main.py
     * pod adresem: http://localhost:8000/docs
+      * zapytanie o działanie kalkulatora póki co jest poprzez "CALL: <treść> X + Y"
 
 ### data flow
 * każde z zapytań przechodzi przez testy heurystyki, jeśli system wykryje próbę manipulacji wyniku poprzez zakazane słowa lub inne metody, wynik jest blokowany
